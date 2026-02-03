@@ -154,3 +154,80 @@ console.log(
     '%cInstaller maintenant → https://chrome.google.com/webstore',
     'font-size: 12px; color: #718096;'
 );
+
+// ========================================
+// MULTILINGUAL SUPPORT (FR/EN)
+// ========================================
+
+// Detect browser language
+const getBrowserLanguage = () => {
+    const lang = navigator.language || navigator.userLanguage;
+    return lang.startsWith('fr') ? 'fr' : 'en';
+};
+
+// Get current language from URL or localStorage or browser
+const getCurrentLanguage = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlLang = urlParams.get('lang');
+    
+    if (urlLang && (urlLang === 'fr' || urlLang === 'en')) {
+        localStorage.setItem('stellabrand_lang', urlLang);
+        return urlLang;
+    }
+    
+    const storedLang = localStorage.getItem('stellabrand_lang');
+    if (storedLang) return storedLang;
+    
+    return getBrowserLanguage();
+};
+
+// Switch language
+const switchLanguage = (lang) => {
+    localStorage.setItem('stellabrand_lang', lang);
+    
+    // Update URL without reload
+    const url = new URL(window.location);
+    url.searchParams.set('lang', lang);
+    window.history.pushState({}, '', url);
+    
+    // Update HTML lang attribute
+    document.documentElement.lang = lang;
+    
+    // Update all translatable elements
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                element.placeholder = translations[lang][key];
+            } else {
+                element.textContent = translations[lang][key];
+            }
+        }
+    });
+    
+    // Update meta tags
+    document.querySelector('meta[name="description"]').content = translations[lang].metaDescription;
+    document.title = translations[lang].metaTitle;
+    
+    // Update language switcher active state
+    document.querySelectorAll('.lang-switch button').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.lang === lang) {
+            btn.classList.add('active');
+        }
+    });
+};
+
+// Initialize language on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const currentLang = getCurrentLanguage();
+    switchLanguage(currentLang);
+    
+    // Language switcher click handlers
+    document.querySelectorAll('.lang-switch button').forEach(btn => {
+        btn.addEventListener('click', () => {
+            switchLanguage(btn.dataset.lang);
+        });
+    });
+});
+
