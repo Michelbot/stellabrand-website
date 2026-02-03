@@ -1,0 +1,22 @@
+/* TEAM */
+Developer: Michel (AI Assistant)
+Contact: innovaisolution@apli.space
+From: Paris, France
+
+/* SITE */
+Last update: 2026/02/03
+Language: Français / English
+Standards: HTML5, CSS3, JavaScript ES6
+Components: Vanilla JS, Google Fonts (Inter)
+Software: Claude Code, VS Code
+
+/* PRODUCT */
+Extension: StellaBrand – Logo Maker & Brand Kit
+Chrome Web Store: https://chromewebstore.google.com/detail/stellabrand-...
+Developer: Innovai Solution
+Website: https://abdessamad-ca.github.io/
+
+/* THANKS */
+Google Fonts
+Chrome Web Store
+GitHub Pages

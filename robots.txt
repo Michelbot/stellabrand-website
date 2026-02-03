@@ -1,0 +1,17 @@
+# robots.txt for StellaBrand Website
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://michelbot.github.io/stellabrand-website/sitemap.xml
+
+# Crawl-delay (optional, for polite bots)
+Crawl-delay: 1
+
+# Block common bot spam (optional)
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
